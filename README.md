@@ -1,6 +1,6 @@
 # Clirbeaux
 
-ソフトウェア開発をフローにするための補助ツール。
+ソフトウェア開発をフローにするための支援ツールのひとつ。
 
 ## 必須環境
 *   サーバ: DockerおよびLinux環境(Docker for Windows + Windows Subsystem for Linuxでも可)
