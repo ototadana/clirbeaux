@@ -93,6 +93,9 @@ Docker起動時に以下の環境変数指定が可能です。
 
 *   **UPDATE_INTERVAL_MIN:** Gitリポジトリ情報更新間隔 (単位は「分」)
     *   デフォルト: `60`
+*   **TAIGA_URL:** TaigaのURL
+    *   Taigaプラグイン(./plugins/taiga)を使用する場合のみ必須
+
 
 ### 追加機能開発の方法
 このアプリは以下の構成になっています。

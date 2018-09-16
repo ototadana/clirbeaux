@@ -1,11 +1,12 @@
 <profile>
-  <div class="row" if={opts.ctx.userId && !user}>
+  <div class="row" if={opts.ctx.email && !user}>
     <spinner></spinner>
   </div>
+
   <div class="row" if={user}>
     <div class="right-align" style="margin-top:12px;">
-      <img src={user.avatar_url}>
-      <h5 class="right-align">{user.name}</h5>
+      <img src={user.big_photo}>
+      <h5 class="right-align">{user.username}</h5>
     </div>
   </div>
   <style>
@@ -26,13 +27,12 @@
   </style>
 
   opts.ctx.on('user-updated', async () => {
-    if(opts.ctx.userId) {
-      this.user = await opts.ctx.get(
-        'https://api.github.com/users/' + encodeURIComponent(opts.ctx.userId));
-      this.update();
+    if(opts.ctx.taiga.user) {
+      this.user = opts.ctx.taiga.user;
     } else {
       this.user = undefined;
-      this.update();
     }
+
+    this.update();
   });
 </profile>

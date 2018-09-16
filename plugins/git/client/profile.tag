@@ -22,7 +22,7 @@
   </style>
 
   opts.ctx.on('user-updated', () => {
-    riot.update();
+    this.update();
   });
 
 </profile>

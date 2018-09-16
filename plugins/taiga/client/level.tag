@@ -27,16 +27,18 @@
   </style>
 
   opts.ctx.on('user-updated', async () => {
-    if(!opts.ctx.email) {
+    if(!opts.ctx.taiga.user) {
       this.level = undefined;
       this.update();
       return;
     }
 
     this.level = await opts.ctx.get(
-      '/git/level?email=' + encodeURIComponent(opts.ctx.email));
+      '/taiga/level?authToken=' + 
+        encodeURIComponent(opts.ctx.taiga.user.auth_token) +
+        '&uid=' + encodeURIComponent(opts.ctx.taiga.user.id));
 
-    const data = await opts.ctx.loadPlayerData('git.Level');
+    const data = await opts.ctx.loadPlayerData('taiga.Level');
 
     if(data.level && data.level != this.level.level) {
       opts.ctx.showSpecialMessage('Level Up!');
@@ -44,6 +46,6 @@
 
     this.update();
 
-    await opts.ctx.savePlayerData('git.Level', this.level);
+    await opts.ctx.savePlayerData('taiga.Level', this.level);
   });
 </level>

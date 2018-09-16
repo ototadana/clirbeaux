@@ -1,0 +1,17 @@
+'use strict';
+
+const router = new (require('koa-router'))();
+
+require('../plugins/util/server').route(router);
+require('../plugins/git/server').route(router);
+require('../plugins/taiga/server').route(router);
+
+const app = new (require('koa'))();
+app
+  .use(require('koa-logger')())
+  .use(require('koa-bodyparser')())
+  .use(require('koa-static')('public'))
+  .use(router.routes())
+  .use(router.allowedMethods());
+
+app.listen(process.env.USER_APP_PORT || 9999);

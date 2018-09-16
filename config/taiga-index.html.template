@@ -1,0 +1,87 @@
+<!DOCTYPE  html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/riot@3.11/riot+compiler.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+    <script src="util/ctx.js"></script>
+
+    <title>Clirbeaux</title>
+    <style>
+      input {
+        font-family:'Lucida Grande', Meiryo, sans-serif;
+        font-weight: bold;
+      }
+
+      .brand-logo i {
+        margin-left: 15px;
+      }
+
+      h4 {
+        border-left: solid 6px #aaaaaa;
+        border-top: solid 1px #aaaaaa;
+        padding-left: 8px;
+        font-size: 2em;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="orange darken-1">
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo"><i class="material-icons left">assessment</i>Clirbeaux</a>
+        <ul id="nav-mobile" class="right">
+          <li><user-button/></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m4">
+          <profile></profile>
+          <level></level>
+          <languages></languages>
+        </div>
+        <div class="col s12 m8">
+          <div class="conainer" style="margin-left:24px">
+            <tasks></tasks>
+            <velocity></velocity>
+            <badges></badges>
+            <items></items>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ranking></ranking>
+    <special-message></special-message>
+    <user-dialog></user-dialog>
+
+    <script type="riot/tag" src="util/special-message.tag"></script>
+    <script type="riot/tag" src="util/spinner.tag"></script>
+    <script type="riot/tag" src="util/badge.tag"></script>
+    <script type="riot/tag" src="util/ranking.tag"></script>
+    <script type="riot/tag" src="taiga/user.tag"></script>
+    <script type="riot/tag" src="taiga/profile.tag"></script>
+    <script type="riot/tag" src="taiga/level.tag"></script>
+    <script type="riot/tag" src="taiga/tasks.tag"></script>
+    <script type="riot/tag" src="git/languages.tag"></script>
+    <script type="riot/tag" src="git/badges.tag"></script>
+    <script type="riot/tag" src="git/velocity.tag"></script>
+    <script type="riot/tag" src="git/item.tag"></script>
+    <script type="riot/tag" src="git/items.tag"></script>
+    <script>
+      riot.mount('*', {ctx: ctx()});
+      M.AutoInit();
+    </script>
+  </body>
+</html>
