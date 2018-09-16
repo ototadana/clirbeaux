@@ -48,7 +48,7 @@
       arr.length = 10;
     }
     this.ranking = arr;
-    riot.update();
+    this.update();
 
     var instance = M.Modal.getInstance(document.querySelector('ranking .modal'));
     instance.open();

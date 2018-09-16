@@ -44,6 +44,12 @@
   });
 
   opts.ctx.on('user-updated', async () => {
+    if(!opts.ctx.email) {
+      this.languages = undefined;
+      this.update();
+      return;
+    }
+
     this.languages = await opts.ctx.get(
       '/git/skills?email=' + encodeURIComponent(opts.ctx.email));
 
@@ -61,7 +67,7 @@
     this.langChart.data.datasets[0].backgroundColor = color;
     this.langChart.data.labels = labels;
     this.langChart.update();
-    riot.update();
+    this.update();
   });
 
   hashCode(str) {

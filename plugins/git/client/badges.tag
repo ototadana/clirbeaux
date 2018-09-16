@@ -40,15 +40,26 @@
   });
 
   async getContributes() {
-    this.contributes = await opts.ctx.get(
-      '/git/contributes?email=' + encodeURIComponent(opts.ctx.email));
-    await this.updatePlayerData('Projects', this.contributes);
+    if(opts.ctx.email) {
+      this.contributes = await opts.ctx.get(
+        '/git/contributes?email=' + encodeURIComponent(opts.ctx.email));
+      await this.updatePlayerData('Projects', this.contributes);
+    } else {
+      this.contributes = undefined;
+      this.update();
+    }
   };
 
   async getSkills() {
-    this.skills = await opts.ctx.get(
-      '/git/skills?email=' + encodeURIComponent(opts.ctx.email));
-    await this.updatePlayerData('Languages', this.skills);
+    if(opts.ctx.email) {
+      this.skills = await opts.ctx.get(
+        '/git/skills?email=' + encodeURIComponent(opts.ctx.email));
+      await this.updatePlayerData('Languages', this.skills);
+    } else {
+      this.skills = undefined;
+      this.update();
+    }
+
   };
 
   async updatePlayerData(type, badges) {
@@ -68,7 +79,7 @@
       opts.ctx.showMessage(type + ' updated');
     }
 
-    riot.update();
+    this.update();
 
     await opts.ctx.savePlayerData('git.' + type, data);
   };

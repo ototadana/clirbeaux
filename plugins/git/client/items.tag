@@ -24,11 +24,16 @@
   </style>
 
   opts.ctx.on('user-updated', async () => {
-    this.items = await opts.ctx.get(
-      '/git/items?email=' + encodeURIComponent(opts.ctx.email));
+    if(opts.ctx.email) {
+      this.items = await opts.ctx.get(
+        '/git/items?email=' + encodeURIComponent(opts.ctx.email));
 
-    riot.update();
-    M.Collapsible.init($('.collapsible'), {});
+      this.update();
+      M.Collapsible.init($('.collapsible'), {});
+    } else {
+      this.items = undefined;
+      this.update();
+    }
   });
 
   async showItemHolders(e) {

@@ -3,7 +3,7 @@
     <div if={opts.ctx.email && !chart}>
       <spinner></spinner>
     </div>
-    <div show={chart}>
+    <div show={opts.ctx.email && chart}>
       <h4>Codes</h4>
       <canvas id="myChart" width="100" height="40"></canvas>
     </div>
@@ -46,6 +46,11 @@
   });
 
   opts.ctx.on('user-updated', async () => {
+    if(!opts.ctx.email) {
+      this.update();
+      return;
+    }
+
     const monthlyLines = await opts.ctx.get(
       '/git/monthly-lines?email=' + encodeURIComponent(opts.ctx.email));
 
@@ -59,6 +64,6 @@
     this.chart.data.datasets[0].data = data;
     this.chart.data.labels = labels;
     this.chart.update();
-    riot.update();
+    this.update();
   });
 </velocity>
