@@ -1,0 +1,103 @@
+fileType:
+- type: Docker
+  pattern: ['Dockerfile', 'docker-compose.yml']
+- type: Build/CI
+  pattern: ['build.gradle', '.gitlab-ci.yml', 'package.json', 'Gruntfile.js', 'gulpfile.js']
+- type: Python
+  pattern: ['*.py']
+  item:
+    matcher:
+    - '^\+import (\S+)'
+    - '^\+from (.+)'
+    exclude:
+    - 'tests.*'
+    - '. *'
+    - '.*'
+    bundle:
+    - type: os
+      pattern: ['os import *']
+    - type: io
+      pattern: ['io import *']
+    - type: datetime
+      pattern: ['datetime*']
+    - type: Flask
+      pattern: ['flask*']
+    - type: Pandas
+      pattern: ['pandas*']
+    - type: Gensim
+      pattern: ['gensim.models*']
+    - type: SQLAlchemy
+      pattern: ['sqlalchemy*']
+    - type: unittest.mock
+      pattern: ['unittest.mock*']
+- type: Java
+  pattern: ['*.java']
+  item:
+    matcher:
+    - '^\+import static (.+);'
+    - '^\+import (.+);'
+    exclude:
+    - '*Exception'
+    bundle:
+    - type: java.io
+      pattern: ['java.io.*']
+    - type: java.lang.management
+      pattern: ['java.lang.management.*']
+    - type: Refection (java.lang.reflect)
+      pattern: ['java.lang.reflect.*']
+    - type: java.net
+      pattern: ['java.net.*']
+    - type: New I/O (java.nio)
+      pattern: ['java.nio.*']
+    - type: JDBC (java.sql)
+      pattern: ['java.sql.*']
+    - type: java.util.concurrent
+      pattern: ['java.util.concurrent.*']
+    - type: JUnit (org.junit)
+      pattern: ['org.junit.*']
+    - type: WebDriver (org.openqa.selenium)
+      pattern: ['org.openqa.selenium.*']
+- type: JavaScript/HTML/CSS
+  pattern: ['*.js', '*.html', '*.htm', '*.css', '*.scss']
+  item:
+    matcher:
+    - '^\+.*<script .*src="https://(.+?)"'
+    - '^\+.*<script .*src="http://(.+?)"'
+    - '^\+.*<script .*src="[\./]*(.+?)"'
+    - '^\+.*<link .*href="https://(.+?)"'
+    - '^\+.*<link .*href="http://(.+?)"'
+    - '^\+.*<link .*href="[\./]*(.+?)"'
+    exclude:
+    - '**/*.png'
+    - '**/*.jpg'
+    - '**/*.gif'
+    - '**/*.ico'
+    - '*.js'
+    - '*.css'
+    bundle:
+    - type: jQuery
+      pattern: ['**/jquery*']
+    - type: Materialize CSS
+      pattern: ['**/materialize.*']
+    - type: Bootstrap
+      pattern: ['**/bootstrap*']
+- type: Shell Script
+  pattern: ['*.sh']
+- type: SQL
+  pattern: ['*.sql']
+- type: Markdown
+  pattern: ['*.md']
+- type: C/C++
+  pattern: ['*.c', '*.cpp', '*.cc', '*.h']
+- type: C#
+  pattern: ['*.cs']
+- type: Go
+  pattern: ['*.go']
+- type: PowerShell
+  pattern: ['*.ps1']
+- type: Groovy
+  pattern: ['*.groovy']
+- type: Groovy
+  pattern: ['*.groovy']
+- type: Ruby
+  pattern: ['*.rb']

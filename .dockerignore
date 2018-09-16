@@ -1,0 +1,9 @@
+node_modules
+public
+tmp
+data
+config/index.js
+config/index.html
+config/file-type.yml
+config/project.yml
+config/*.backup

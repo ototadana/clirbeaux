@@ -1,0 +1,28 @@
+{
+  "name": "Clirbeaux",
+  "version": "1.0.0",
+  "main": "config/index.js",
+  "repository": "https://github.com/ototadana/clirbeaux.git",
+  "author": "ototadana",
+  "license": "MIT",
+  "dependencies": {
+    "await-spawn": "^2.1.1",
+    "axios": "^0.18.0",
+    "js-yaml": "^3.12.0",
+    "koa": "^2.5.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "line-by-line-promise": "^0.0.1",
+    "minimatch": "^3.0.4",
+    "mkdirp-promise": "^5.0.1"
+  },
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^5.0.0",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-rename": "^1.4.0"
+  }
+}

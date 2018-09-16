@@ -59,3 +59,13 @@ typings/
 
 # next.js build output
 .next
+
+/tmp/
+/data/
+/public/
+/config/index.js
+/config/index.html
+/config/file-type.yml
+/config/project.yml
+
+*.backup
