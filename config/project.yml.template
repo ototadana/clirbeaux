@@ -1,0 +1,8 @@
+project:
+- name: Your Git Repository 1
+  url: https://excample.com/repo1.git
+- name: Your Git Repository 2
+  url: https://excample.com/repo2.git
+  branch: branch-1
+  exclude:
+  - '/example/**'
