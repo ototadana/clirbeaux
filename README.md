@@ -3,19 +3,32 @@
 ソフトウェア開発をフローにするための支援ツールのひとつ。
 
 ## 必須環境
-*   サーバ: DockerおよびLinux環境(Docker for Windows + Windows Subsystem for Linuxでも可)
+*   サーバ: DockerおよびLinux環境
 *   クライアント: IE以外のブラウザ最新版
+
+Docker for Windows + Windows Subsystem for Linux (WSL) を使用する場合は、事前に以下の作業を行ってください。
+
+1.  Dockerの共有ドライブ(Shared Drives)設定を行う。
+2.  共有ドライブ設定を行ったドライブを `/c` や `/d` というディレクトリでアクセスできるようにするために、
+    シンボリックリンク設定(例: `sudo ln -s /mnt/c /c`)を行っておく
+    (以降、`/mnt/c` で作業を行うのではなく、`/c` で作業を行うようにする)。
+3.  このリポジトリのクローン先ディレクトリをWindows上（エクスプローラー等）で作成しておく(Ubuntu等のシェルで作成するのはNG)。
 
 ## サーバセットアップ
 1.  このリポジトリをクローンしてクローン先のディレクトリにcdする。
+    ```
+    git clone https://github.com/ototadana/clirbeaux.git
+    cd clirbeaux
+    ```
 2.  `docker build -t clirbeaux .` でclirbeauxイメージを作成する。
-3.  `./sh/setup.sh`を実行し、`./config`ディレクトリに必要なファイルを作成する。
+3.  以下のコマンドを実行し、初期セットアップを行う。
+    *   `docker run -v $(pwd):/clirbeaux -w /clirbeaux --rm clirbeaux ./sh/setup.sh`
+
 4.  configディレクトリのファイルを編集する。
     *   **project.yml:** プロジェクト定義
         *   最低限このファイルの編集だけは必要。
         *   情報取得先のGitリポジトリを定義する。
         *   **name**と**url**の指定は必須。**branch*と**exclude**は必要に応じて定義する。
-        *   **name**と**url**の指定は必須。
     *   **file-type.yml:** ファイルタイプ定義
         *   とりあえず試してみるだけの場合は編集不要。
         *   情報収集するファイルのタイプを定義する。
@@ -29,7 +42,6 @@
 ## サーバ実行
 1.  以下のコマンドでサーバを起動する。
     *   `docker run -v $(pwd):/clirbeaux -w /clirbeaux -it --rm -p 9999:9999 clirbeaux ./sh/start.sh`
-    *   (Windows + WSLの場合) `docker run -v $(pwd |sed 's|/mnt||'):/clirbeaux -w /clirbeaux -it --rm -p 9999:9999 clirbeaux ./sh/start.sh`
 2.  起動直後はGitリポジトリからの情報収集が動作する。コンソールに日付が表示されれば起動終了。
 
 ## ブラウザからのアクセス
@@ -154,7 +166,6 @@ require('../plugins/作成するアプリ/server').route(router);
 
 1.  以下のコマンドでDockerコンテナ上のシェルを起動する。
     *   `docker run -v $(pwd):/clirbeaux -w /clirbeaux -it --rm -p 9999:9999 clirbeaux sh`
-    *   (Windows + WSLの場合) `docker run -v $(pwd |sed 's|/mnt||'):/clirbeaux -w /clirbeaux -it --rm -p 9999:9999 clirbeaux sh`
 2.  `./node_modules/.bin/gulp default serve` でgulpビルドを実行すると同時に、サーバを起動する。
     *   上記の状態で、`./plugins/*` のファイルを修正すると自動的にgulpビルドとサーバ再起動が行われます。
     *   ただし、新規ファイルを追加した場合は、一旦Ctrl+C等でgulpを終了させ、再起動する必要があります。
