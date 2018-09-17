@@ -8,3 +8,5 @@ cp ./config/index.html.template ./config/index.html
 cp ./config/index.js.template ./config/index.js
 cp ./config/file-type.yml.template ./config/file-type.yml
 cp ./config/project.yml.template ./config/project.yml
+
+yarn install
