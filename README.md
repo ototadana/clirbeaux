@@ -59,15 +59,6 @@ Docker for Windows + Windows Subsystem for Linux (WSL) を使用する場合は�
 ## 3. サーバ実行
 1.  以下のコマンドでサーバを起動する。
     *   `docker run -v $(pwd):/clirbeaux -w /clirbeaux -it --rm -p 9999:9999 clirbeaux ./sh/start.sh`
-    *   参考）プロキシサーバを使用する環境で実行する例：
-       ```
-        docker run -v $(pwd):/clirbeaux -w /clirbeaux -it --rm -p 9999:9999 \
-            --network host \
-            -e http_proxy="$http_proxy" \
-            -e https_proxy="$https_proxy" \
-            -e no_proxy="$no_proxy" \
-            clirbeaux ./sh/start.sh
-       ```
 2.  起動直後はGitリポジトリからの情報収集が動作する。コンソールに日付が表示されれば収集完了。
 
 ## 4. ブラウザからのアクセス
@@ -129,6 +120,8 @@ YAML形式のファイルで、fileTypeの下に以下の定義を行います(�
 ### 5.4 環境変数設定
 Docker起動時に以下の環境変数指定が可能です。
 
+*   **USER_APP_PORT:** ポート番号
+    *   デフォルト: `9999`
 *   **UPDATE_INTERVAL_MIN:** Gitリポジトリ情報更新間隔 (単位は「分」)
     *   デフォルト: `60`
 *   **TAIGA_URL:** TaigaのURL
