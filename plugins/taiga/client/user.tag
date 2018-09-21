@@ -4,14 +4,14 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">person</i>
-          <input id="user" type="text" class="validate">
+          <input id="user" type="text" class="validate" onkeydown={enter}>
           <label for="user">User Id</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">security</i>
-          <input id="password" type="password" class="validate">
+          <input id="password" type="password" class="validate" onkeydown={enter}>
           <label for="password">Password</label>
         </div>
         <div class="row" if={error}>
@@ -38,9 +38,7 @@
         if(!$("#user").val() && user && user.userId) {
           $("#user").val(user.userId);
         }
-        if(!$("#password").val() && user && user.password) {
-          $("#password").val(user.password);
-        }
+        $("#password").val('');
 
         $("#user").focus();
         M.updateTextFields();
@@ -54,7 +52,13 @@
     }
   });
 
-  async updateUser(e) {
+  enter(e) {
+    if(e.keyCode === 13) {
+      $('user-dialog button').click();
+    }
+  }
+
+  updateUser(e) {
     e.preventDefault();
     this.getUser($("#user").val(), $("#password").val());
   }
