@@ -14,7 +14,7 @@
   </style>
 
   this.on('mount', () => {
-    var ctx = document.getElementById("langChart").getContext('2d');
+    const ctx = document.getElementById("langChart").getContext('2d');
 
     this.langChart = new Chart(ctx, {
       type: 'pie',
@@ -29,10 +29,10 @@
           position: 'bottom'
         },
         onClick: async (e) => {
-          var chart = this.langChart;
-          var point = chart.getElementAtEvent(e)[0];
+          const chart = this.langChart;
+          const point = chart.getElementAtEvent(e)[0];
           if(point) {
-            var lang = chart.data.labels[point._index];
+            const lang = chart.data.labels[point._index];
 
             const ranking = await opts.ctx.get(
               '/git/language-masters?language=' + encodeURIComponent(lang));
@@ -53,11 +53,11 @@
     this.languages = await opts.ctx.get(
       '/git/skills?email=' + encodeURIComponent(opts.ctx.email));
 
-    var sorted = this.languages.sort((a,b) => {return b.value - a.value;});
-    var labels = [];
-    var data = [];
-    var color = [];
-    for(var i = 0; i < sorted.length; i++) {
+    const sorted = this.languages.sort((a,b) => {return b.value - a.value;});
+    const labels = [];
+    const data = [];
+    const color = [];
+    for(let i = 0; i < sorted.length; i++) {
       labels.push(sorted[i].key);
       data.push(sorted[i].value);
       color.push(this.intToRGB(this.hashCode(sorted[i].key)));
@@ -71,15 +71,15 @@
   });
 
   hashCode(str) {
-    var hash = 0;
-    for (var i = 0; i < str.length; i++) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
       hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
     return hash;
   }
 
   intToRGB(i) {
-    var c = (i & 0x00FFFFFF).toString(16).toUpperCase();
+    const c = (i & 0x00FFFFFF).toString(16).toUpperCase();
     return "#00000".substring(0, 7 - c.length) + c;
   }
 

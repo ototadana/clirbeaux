@@ -34,14 +34,14 @@
         '&uid=' + encodeURIComponent(opts.ctx.taiga.user.id));
 
     this.tasks.forEach((taskType) => {
-      var taskCount = {};
+      const taskCount = {};
       taskType.data.forEach((task) => {
         if(taskCount[task.us] == undefined) {
           taskCount[task.us] = 0;
         }
         taskCount[task.us] = taskCount[task.us] + 1;
       });
-      var taskDetail = [];
+      const taskDetail = [];
       Object.keys(taskCount).forEach(function(us){
         taskDetail.push(us + ':' + taskCount[us]);
       });
