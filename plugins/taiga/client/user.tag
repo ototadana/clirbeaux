@@ -32,10 +32,9 @@
   </style>
 
   this.on('mount', () => {
-    var instance = M.Modal.init($('#user-dialog'), {
+    const user = opts.ctx.load('taiga.user');
+    const instance = M.Modal.init($('#user-dialog'), {
       onOpenEnd: () => {
-        user = opts.ctx.load('taiga.user');
-
         if(!$("#user").val() && user && user.userId) {
           $("#user").val(user.userId);
         }
@@ -48,19 +47,22 @@
       }
     });
 
-    if(opts.ctx.email) {
+    if(user && user.userId && user.password) {
+      this.getUser(user.userId, user.password);
+    } else {
       instance[0].open();
     }
   });
 
   async updateUser(e) {
     e.preventDefault();
+    this.getUser($("#user").val(), $("#password").val());
+  }
 
+  async getUser(userId, password) {
     if(!opts.ctx.taiga) {
       opts.ctx.taiga = {};
     }
-    const userId = $("#user").val();
-    const password = $("#password").val();
 
     opts.ctx.taiga.user = await opts.ctx.get(
       '/taiga/profile?user=' + 
@@ -83,24 +85,23 @@
       M.Modal.getInstance($('#user-dialog')).open();
     }
   }
+
 </user-dialog>
 <user-button>
   <a id="user-button" href="#!" class="modal-action" onclick={openDialog}>Login</a>
 
   async openDialog(e) {
-    var userButton = $('#user-button');
-    var command = userButton.text();
-
-    if(command === 'Login') {
-      var instance = M.Modal.getInstance(document.querySelector('#user-dialog'));
-      instance.open();
-    } else {
-      console.log(e);
+    const userButton = $('#user-button');
+    const command = userButton.text();
+    if(command === 'Logout') {
       opts.ctx.taiga.user = undefined;
       opts.ctx.email = undefined;
       userButton.text('Login');
       this.update();
       opts.ctx.trigger('user-updated');
     }
+
+    const instance = M.Modal.getInstance(document.querySelector('#user-dialog'));
+    instance.open();
   }
 </user-button>
