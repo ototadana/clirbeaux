@@ -1,9 +1,9 @@
 const ctx = () => {
-  var ctx = {};
+  const ctx = {};
   riot.observable(ctx);
 
   ctx.load = (key) => {
-    var value = localStorage.getItem(key);
+    const value = localStorage.getItem(key);
     if(value) {
       try {
         return JSON.parse(value);

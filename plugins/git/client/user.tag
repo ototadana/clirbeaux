@@ -20,9 +20,9 @@
   </style>
 
   this.on('mount', () => {
-    var instance = M.Modal.init($('#user-dialog'), {
+    const instance = M.Modal.init($('#user-dialog'), {
       onOpenEnd: () => {
-        var user = opts.ctx.load('git.user');
+        const user = opts.ctx.load('git.user');
 
         if(!$("#email").val() && user && user.email) {
           $("#email").val(user.email);

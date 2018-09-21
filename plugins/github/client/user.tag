@@ -27,9 +27,9 @@
   </style>
 
   this.on('mount', () => {
-    var instance = M.Modal.init($('#user-dialog'), {
+    const instance = M.Modal.init($('#user-dialog'), {
       onOpenEnd: () => {
-        var user = opts.ctx.load('github.user');
+        const user = opts.ctx.load('github.user');
 
         if(!$("#user").val() && user && user.userId) {
           $("#user").val(user.userId);

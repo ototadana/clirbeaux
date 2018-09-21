@@ -242,7 +242,7 @@ const updateDataByLog = async (config, fileTypes) => {
 };
 
 const updateLogFile = async (config) => {
-  var branch = config.branch || 'master';
+  const branch = config.branch || 'master';
   await spawn('sh', ['./sh/update-log-file.sh', config.name, config.url, branch], {stdio: 'inherit'});
 };
 

@@ -41,7 +41,7 @@
 
   opts.ctx.showSpecialMessage = (message) => {
     $('special-message .modal h1').text(message);
-    var instance = M.Modal.getInstance(document.querySelector('special-message .modal'));
+    const instance = M.Modal.getInstance(document.querySelector('special-message .modal'));
     instance.open();
     setTimeout(() => {
       instance.close();

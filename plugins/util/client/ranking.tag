@@ -50,7 +50,7 @@
     this.ranking = arr;
     this.update();
 
-    var instance = M.Modal.getInstance(document.querySelector('ranking .modal'));
+    const instance = M.Modal.getInstance(document.querySelector('ranking .modal'));
     instance.open();
   }
 </ranking>

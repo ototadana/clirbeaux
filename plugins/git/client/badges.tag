@@ -66,9 +66,9 @@
     let updated = false;
     const data = await opts.ctx.loadPlayerData('git.' + type);
 
-    for(var i = 0; i < badges.length; i++) {
-      var badge = badges[i];
-      var value = data[badge.key];
+    for(let i = 0; i < badges.length; i++) {
+      const badge = badges[i];
+      const value = data[badge.key];
       if(value && value != badge.value) {
         updated = true;
         badge.highlight = 'highlight';

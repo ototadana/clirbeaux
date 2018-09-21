@@ -10,7 +10,7 @@
   </div>
 
   this.on('mount', () => {
-    var ctx = document.getElementById("myChart").getContext('2d');
+    const ctx = document.getElementById("myChart").getContext('2d');
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -21,9 +21,9 @@
       },
       options: {
         onClick: async (e) => {
-          var chart = this.chart;
-          var point = chart.getElementAtEvent(e)[0];
-          var month;
+          const chart = this.chart;
+          const point = chart.getElementAtEvent(e)[0];
+          let month;
           if(point) {
             month = chart.data.labels[point._index];
           } else {
@@ -54,9 +54,9 @@
     const monthlyLines = await opts.ctx.get(
       '/git/monthly-lines?email=' + encodeURIComponent(opts.ctx.email));
 
-    var labels = [];
-    var data = [];
-    for(var i = 0; i < monthlyLines.length; i++) {
+    const labels = [];
+    const data = [];
+    for(let i = 0; i < monthlyLines.length; i++) {
       labels.push(monthlyLines[i].key);
       data.push(monthlyLines[i].value);
     }
