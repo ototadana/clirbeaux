@@ -54,6 +54,7 @@
         <div class="col s12 m8">
           <div class="conainer" style="margin-left:24px">
             <tasks></tasks>
+            <treasure-box></treasure-box>
             <velocity></velocity>
             <badges></badges>
             <items></items>
@@ -74,6 +75,7 @@
     <script type="riot/tag" src="taiga/profile.tag"></script>
     <script type="riot/tag" src="taiga/level.tag"></script>
     <script type="riot/tag" src="taiga/tasks.tag"></script>
+    <script type="riot/tag" src="taiga/treasure-box.tag"></script>
     <script type="riot/tag" src="git/languages.tag"></script>
     <script type="riot/tag" src="git/badges.tag"></script>
     <script type="riot/tag" src="git/velocity.tag"></script>
