@@ -26,6 +26,36 @@ const getHeaders = (authToken) => {
     };
 }
 
+const projectMap = {};
+const getProject = async (authToken, id) => {
+  let project = projectMap[id];
+
+  if(!project) {
+    const response = await axios.get(taigaUrl + 'projects/' + id, {
+      headers: getHeaders(authToken)
+    });
+    project = response.data.slug;
+    projectMap[id] = project;
+  }
+
+  return project;
+};
+
+const summarizeTask = async (authToken, task) => {
+  const usInfo = task.user_story_extra_info;
+  const project = await getProject(authToken, task.project);
+  const projectUrl = url.resolve(process.env.TAIGA_URL, 'project/' + project);
+  const taskUrl = projectUrl + '/task/' + task.ref;
+  const usUrl = usInfo? (projectUrl + '/us/' + usInfo.ref) : taskUrl;
+  return {
+    ref: task.ref,
+    taskUrl: taskUrl,
+    usUrl: usUrl,
+    subject: task.subject,
+    us: usInfo? usInfo.subject : task.subject
+  };
+};
+
 const getOpenTasks = async (authToken, uid) => {
   const response = await axios.get(taigaUrl + 'tasks?status__is_closed=false&assigned_to=' + uid, {
     headers: getHeaders(authToken)
@@ -44,33 +74,69 @@ const getOpenTasks = async (authToken, uid) => {
     } else {
       entry.count = entry.count + 1;
     }
-    const data = {
-      subject: response.data[i].subject,
-      us: (response.data[i].user_story_extra_info)?
-            response.data[i].user_story_extra_info.subject:
-            response.data[i].subject
-    };
-    entry.data.push(data);
+    entry.data.push(await summarizeTask(authToken, response.data[i]));
     tasks[name] = entry;
   }
   return Object.values(tasks);
 };
 
-
-const getClosedTaskCount = async (authToken, uid) => {
+const getClosedTasks = async (authToken, uid) => {
   const response = await axios.get(taigaUrl + 'tasks?status__is_closed=true&assigned_to=' + uid, {
     headers: getHeaders(authToken)
   });
 
-  return response.data.length;
+  return response.data;
 };
 
-const getOwnedIssueCount = async (authToken, uid) => {
+const getOwnedIssues = async (authToken, uid) => {
   const response = await axios.get(taigaUrl + 'issues?owner=' + uid, {
     headers: getHeaders(authToken)
   });
 
-  return response.data.length;
+  return response.data;
+};
+
+const getClosedTaskCount = async (authToken, uid) => {
+  return (await getClosedTasks(authToken, uid)).length;
+};
+
+const getOwnedIssueCount = async (authToken, uid) => {
+  return (await getOwnedIssues(authToken, uid)).length;
+};
+
+const getLength = (num) => {
+  return Math.floor(Math.log(num)/Math.log(10))+1;
+};
+
+const getSnakeEyes = (length) => {
+  let num = 0;
+  for(let i = 0; i < length; i++) {
+    num = num + Math.pow(10, i);
+  }
+  return num;
+};
+
+const isNiceRoundNumber = (ref, length) => {
+  return Math.pow(10, length-1) === ref;
+};
+
+const isRepdigit = (ref, length) => {
+  return length > 2 && ref%getSnakeEyes(length) === 0;
+};
+
+const isTreasure = (ref) => {
+  const length = getLength(ref);
+  return isNiceRoundNumber(ref, length) || isRepdigit(ref, length);
+};
+
+const findTreasureFromClosedTasks = async (authToken, uid) => {
+  const tasks = await getClosedTasks(authToken, uid);
+  const tresureTasks = tasks.filter(t => isTreasure(t.ref));
+  const results = [];
+  for(let i = 0; i < tresureTasks.length; i++) {
+    results.push(await summarizeTask(authToken, tresureTasks[i]));
+  }
+  return results;
 };
 
 const calcProgress = (exp, level, nextLevel) => {
@@ -136,8 +202,16 @@ const getLevel = async (ctx, next) => {
   ctx.status = 200;
 };
 
+const getTreasures = async (ctx, next) => {
+  const authToken = ctx.request.query.authToken;
+  const uid = ctx.request.query.uid;
+  ctx.body = await findTreasureFromClosedTasks(authToken, uid);
+  ctx.status = 200;
+};
+
 module.exports.route = (router) => {
   router
+    .get('/taiga/treasures', getTreasures)
     .get('/taiga/profile', getProfile)
     .get('/taiga/level', getLevel)
     .get('/taiga/tasks', getTasks);
