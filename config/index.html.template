@@ -32,6 +32,15 @@
         font-size: 2em;
         color: black;
       }
+
+      h5 {
+        color: #555;
+      }
+
+      h5 i {
+        margin-right: 10px;
+        vertical-align: bottom;
+      }
     </style>
   </head>
   <body>
