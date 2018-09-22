@@ -39,6 +39,10 @@
       }
     }
 
+    .collapsible-header {
+      color: #555;
+    }
+
     b {
       font-weight: bold;
       color: #A88666;

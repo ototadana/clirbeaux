@@ -4,7 +4,7 @@
       <spinner></spinner>
     </div>
     <div if={contributes}>
-      <h5>Projects</h5>
+      <h5><i class="material-icons">map</i>Projects</h5>
       <ul>
         <li each={contributes}>
           <badge key={key} count={value} all={all} highlight={highlight} onclick={showContributers}></badge>
@@ -17,7 +17,7 @@
       <spinner></spinner>
     </div>
     <div if={skills}>
-      <h5>Languages</h5>
+      <h5><i class="material-icons">keyboard</i>Languages</h5>
       <ul>
         <li each={skills}>
           <badge key={key} count={value} all={all} highlight={highlight} onclick={showLanguageMasters}></badge>

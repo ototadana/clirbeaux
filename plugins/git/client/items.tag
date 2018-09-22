@@ -4,7 +4,7 @@
       <spinner></spinner>
     </div>
     <div if={items}>
-      <h5>Items</h5>
+      <h5><i class="material-icons">vpn_key</i>Items</h5>
       <ul class="collapsible">
         <li each={this.items}>
           <div class="collapsible-header">{type}</div>
