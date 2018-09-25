@@ -64,7 +64,6 @@
     await this.updatePlayerData(this.treasures);
     this.update();
     M.Collapsible.init($('.collapsible'), {});
-    console.log(this);
   });
 
   async updatePlayerData(tresures) {
