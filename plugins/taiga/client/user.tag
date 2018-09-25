@@ -68,6 +68,8 @@
       opts.ctx.taiga = {};
     }
 
+    opts.ctx.email = userId;
+    riot.update();
     opts.ctx.taiga.user = await opts.ctx.get(
       '/taiga/profile?user=' + 
         encodeURIComponent(userId) +
